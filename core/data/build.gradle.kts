@@ -1,8 +1,6 @@
 plugins {
     id("convention.data")
     alias(libs.plugins.kotlinSerialization)
-    // alias(libs.plugins.ksp)
-    // alias(libs.plugins.room)
 }
 
 kotlin {
@@ -22,8 +20,7 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.datastore.preferences)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
+            implementation(libs.store5)
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
@@ -35,12 +32,6 @@ kotlin {
     }
 }
 
-dependencies {
-    // add("kspAndroid", libs.room.compiler)
-    // add("kspIosSimulatorArm64", libs.room.compiler)
-    // add("kspIosArm64", libs.room.compiler)
-    // add("kspIosX64", libs.room.compiler)
-}
 
 
 

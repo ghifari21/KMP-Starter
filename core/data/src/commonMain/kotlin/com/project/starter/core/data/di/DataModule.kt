@@ -23,5 +23,5 @@ val dataModule = module {
     }
     single<SessionManager> { EncryptedSessionManager(get()) }
     
-    single<ExampleRepository> { ExampleRepositoryImpl() }
+    single<ExampleRepository> { ExampleRepositoryImpl(get()) }
 }
