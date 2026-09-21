@@ -9,9 +9,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class EncryptedSessionManager(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
 ) : SessionManager {
-
     companion object {
         private val TOKEN_KEY = stringPreferencesKey("auth_token")
     }
@@ -22,11 +21,11 @@ class EncryptedSessionManager(
         }
     }
 
-    override suspend fun getToken(): String? {
-        return dataStore.data.map { preferences ->
-            preferences[TOKEN_KEY]
-        }.first()
-    }
+    override suspend fun getToken(): String? =
+        dataStore.data
+            .map { preferences ->
+                preferences[TOKEN_KEY]
+            }.first()
 
     override suspend fun clearSession() {
         dataStore.edit { preferences ->

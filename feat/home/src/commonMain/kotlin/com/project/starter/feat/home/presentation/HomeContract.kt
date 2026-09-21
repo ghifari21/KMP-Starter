@@ -6,7 +6,7 @@ import com.project.starter.common.base.UiState
 
 data class HomeState(
     val isLoading: Boolean = false,
-    val items: List<String> = emptyList()
+    val items: List<String> = emptyList(),
 ) : UiState
 
 sealed interface HomeEvent : UiEvent {
@@ -14,5 +14,7 @@ sealed interface HomeEvent : UiEvent {
 }
 
 sealed interface HomeEffect : UiEffect {
-    data class ShowToast(val message: String) : HomeEffect
+    data class ShowToast(
+        val message: String,
+    ) : HomeEffect
 }

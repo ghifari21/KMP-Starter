@@ -11,11 +11,7 @@ class JvmPlatformPathProvider : PlatformPathProvider {
             return appDir.absolutePath
         }
 
-    override fun getDatabasePath(name: String): String {
-        return File(appDataDir, name).absolutePath
-    }
+    override fun getDatabasePath(name: String): String = File(appDataDir, name).absolutePath
 
-    override fun getDataStorePath(name: String): String {
-        return File(appDataDir, "$name.preferences_pb").absolutePath
-    }
+    override fun getDataStorePath(name: String): String = File(appDataDir, "$name.preferences_pb").absolutePath
 }

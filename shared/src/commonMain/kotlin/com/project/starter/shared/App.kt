@@ -18,7 +18,7 @@ fun App() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = Screen.Home
+                startDestination = Screen.Home,
             ) {
                 composable<Screen.Home> {
                     // Inject ViewModel via Koin

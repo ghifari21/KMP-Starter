@@ -8,4 +8,3 @@ kotlin {
         namespace = "com.project.starter.core.designsystem"
     }
 }
-

@@ -10,7 +10,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) {
         appDeclaration()
         modules(
             dataModule,
-            homeModule
+            homeModule,
         )
     }
 }
