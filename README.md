@@ -1,1 +1,67 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM).  * [/iosApp](./iosApp/iosApp) contains an iOS application. Even if youâ€™re sharing your UI with Compose Multiplatform,   you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.  * [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.   It contains several subfolders:   - [commonMain](./shared/src/commonMain/kotlin) is for code thatâ€™s common for all targets.   - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.     For example, if you want to use Appleâ€™s CoreCrypto for the iOS part of your Kotlin app,     the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.     Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)     folder is the appropriate location.  ### Running the apps  Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:  - Android app: `./gradlew :androidApp:assembleDebug` - Desktop app:   - Hot reload: `./gradlew :desktopApp:hotRun --auto`   - Standard run: `./gradlew :desktopApp:run` - Web app:   - Wasm target (faster, modern browsers): `./gradlew :webApp:wasmJsBrowserDevelopmentRun`   - JS target (slower, supports older browsers): `./gradlew :webApp:jsBrowserDevelopmentRun` - iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.  ### Running tests  Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:  - Android tests: `./gradlew :shared:testAndroidHostTest` - Desktop tests: `./gradlew :shared:jvmTest` - Web tests:   - Wasm target: `./gradlew :shared:wasmJsTest`   - JS target: `./gradlew :shared:jsTest` - iOS tests: `./gradlew :shared:iosSimulatorArm64Test`  ---  Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html), [Compose Multiplatform](https://kotlinlang.org/compose-multiplatform/), [Kotlin/Wasm](https://kotl.in/wasm/)â€¦  We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web). If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+# KMP Starter (Kotlin Multiplatform)
+
+A modern, production-ready Kotlin Multiplatform (KMP) starter template targeting **Android**, **iOS**, and **Desktop (JVM)**. Built with **Compose Multiplatform** and structured using **Clean Architecture** and **MVI**.
+
+## 🚀 Features
+
+- **Compose Multiplatform**: UI shared across Android, iOS, and Desktop.
+- **Clean Architecture & Multi-module**: Separated into `core`, `feat`, and `common` to scale properly.
+- **MVI Pattern**: Predictable state management using `StateFlow`, `BaseViewModel`, and `UiState`.
+- **Jetpack Navigation KMP**: Type-safe and standard declarative navigation.
+- **Dependency Injection**: Powered by **Koin** for seamless injection across platforms.
+- **Local Database**: Powered by **Room KMP** (SQLite).
+- **Session Management**: Powered by **DataStore Preferences (KMP)**.
+- **Network**: Integrated with **Ktor Client**.
+- **Centralized Build Logic**: Uses Gradle **Convention Plugins** (`build-logic`) for DRY build scripts.
+
+## 📂 Project Structure
+
+This project adopts a highly modular structure to improve build times and separation of concerns:
+
+- **`build-logic/`**: Contains Gradle convention plugins (e.g., `cmp-feature`, `kmp-library`) to easily manage module configurations.
+- **`common/`**: Contains platform-agnostic utilities, base classes (`BaseViewModel`, `UiContract`), and exceptions.
+- **`core/`**: Foundational modules shared across features.
+  - `:core:data`: Handles APIs, Database (Room), and Preferences (DataStore).
+  - `:core:domain`: Contains Interfaces, UseCases, and Business Logic.
+  - `:core:model`: Shared data models (Entities, DTOs).
+  - `:core:navigation`: Routing definitions and destinations.
+  - `:core:designsystem`: Custom themes, typography, and reusable components.
+- **`feat/`**: Contains individual feature modules (e.g., `:feat:home`) handling their own UI and ViewModels.
+- **`shared/`**: The umbrella module that aggregates all features and core modules to bridge them into the native iOS/Android/Desktop entry points. It also initializes DI (`initKoin`).
+
+## 🛠️ Requirements
+
+- **JDK 17** or higher.
+- **Android Studio Ladybug** (or IntelliJ IDEA with KMP plugins).
+- **Xcode** (for running the iOS app on Mac).
+- macOS is required to build and run the iOS target (Apple targets are disabled by default on Windows/Linux environments).
+
+## ▶️ Running the Apps
+
+### Android
+Open the project in Android Studio, select the `androidApp` run configuration, and press **Run**.
+Alternatively, via terminal:
+```bash
+./gradlew :androidApp:assembleDebug
+```
+
+### Desktop (JVM)
+You can run the desktop application from the terminal:
+```bash
+./gradlew :desktopApp:run
+```
+
+### iOS
+1. Ensure you are on macOS and have Xcode installed.
+2. Open the `/iosApp` directory in Xcode and run it from there.
+3. Or, run via Android Studio using the `iosApp` run configuration.
+
+## 🔄 Renaming the Package
+
+If you are starting a new project using this template, you can easily rename the package `com.project.starter` to your own company or app name.
+
+Run the provided Python script in the root directory:
+```bash
+python rename.py
+```
+It will prompt you for your new package name (e.g., `com.mycompany.myapp`) and automatically rename all folders, `build.gradle` namespaces, and import statements across the entire project.
