@@ -9,7 +9,7 @@ A modern, production-ready Kotlin Multiplatform (KMP) starter template targeting
 - **MVI Pattern**: Predictable state management using `StateFlow`, `BaseViewModel`, and `UiState`.
 - **Jetpack Navigation KMP**: Type-safe and standard declarative navigation.
 - **Dependency Injection**: Powered by **Koin** for seamless injection across platforms.
-- **Local Database**: Powered by **Room KMP** (SQLite).
+- **Caching & Data Loading**: Powered by **Store5**.
 - **Session Management**: Powered by **DataStore Preferences (KMP)**.
 - **Network**: Integrated with **Ktor Client**.
 - **Centralized Build Logic**: Uses Gradle **Convention Plugins** (`build-logic`) for DRY build scripts.
@@ -18,16 +18,23 @@ A modern, production-ready Kotlin Multiplatform (KMP) starter template targeting
 
 This project adopts a highly modular structure to improve build times and separation of concerns:
 
-- **`build-logic/`**: Contains Gradle convention plugins (e.g., `cmp-feature`, `kmp-library`) to easily manage module configurations.
-- **`common/`**: Contains platform-agnostic utilities, base classes (`BaseViewModel`, `UiContract`), and exceptions.
-- **`core/`**: Foundational modules shared across features.
-  - `:core:data`: Handles APIs, Database (Room), and Preferences (DataStore).
-  - `:core:domain`: Contains Interfaces, UseCases, and Business Logic.
-  - `:core:model`: Shared data models (Entities, DTOs).
-  - `:core:navigation`: Routing definitions and destinations.
-  - `:core:designsystem`: Custom themes, typography, and reusable components.
-- **`feat/`**: Contains individual feature modules (e.g., `:feat:home`) handling their own UI and ViewModels.
-- **`shared/`**: The umbrella module that aggregates all features and core modules to bridge them into the native iOS/Android/Desktop entry points. It also initializes DI (`initKoin`).
+```text
+KMPStarter/
+├── build-logic/      # Gradle convention plugins (e.g., cmp-feature, kmp-library)
+├── common/           # Platform-agnostic utilities, exceptions, and base MVI classes
+├── core/             # Foundational modules shared across features
+│   ├── data/         # Repositories, APIs (Ktor), Store5, and Preferences (DataStore)
+│   ├── designsystem/ # Custom themes, typography, and reusable UI components
+│   ├── domain/       # Interfaces, UseCases, and Business Logic
+│   ├── model/        # Shared data models (Entities, DTOs)
+│   └── navigation/   # Routing definitions and destinations
+├── feat/             # Individual feature modules handling UI and ViewModels
+│   └── home/         # Example home feature
+├── shared/           # Umbrella module aggregating features and initializing DI (Koin)
+├── androidApp/       # Android application entry point
+├── iosApp/           # iOS Xcode project and application entry point
+└── desktopApp/       # Desktop JVM entry point
+```
 
 ## 🛠️ Requirements
 
