@@ -1,6 +1,5 @@
-rootProject.name = "KMPStarter"
-
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             mavenContent {
@@ -27,6 +26,8 @@ dependencyResolutionManagement {
     }
 }
 
+rootProject.name = "KMPStarter"
+
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
@@ -34,4 +35,13 @@ plugins {
 include(":androidApp")
 include(":desktopApp")
 include(":shared")
-include(":webApp")
+// include(":webApp")
+
+include(":core:model")
+include(":core:domain")
+include(":core:data")
+include(":core:designsystem")
+include(":core:navigation")
+include(":core:testing")
+include(":feat:home")
+include(":common")

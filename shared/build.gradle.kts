@@ -8,29 +8,23 @@ plugins {
     alias(libs.plugins.composeCompiler)
 }
 
+val isMac = System.getProperty("os.name").lowercase().contains("mac")
+
 kotlin {
-    listOf(
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "Shared"
-            isStatic = true
+    if (isMac) {
+        listOf(
+            iosArm64(),
+            iosSimulatorArm64(),
+            iosX64()
+        ).forEach { iosTarget ->
+            iosTarget.binaries.framework {
+                baseName = "Shared"
+                isStatic = true
+            }
         }
     }
     
     jvm()
-    
-    js {
-        browser()
-        binaries.executable()
-    }
-    
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-        binaries.executable()
-    }
     
     android {
        namespace = "com.project.starter.shared"
@@ -38,7 +32,7 @@ kotlin {
        minSdk = libs.versions.android.minSdk.get().toInt()
     
        compilerOptions {
-           jvmTarget = JvmTarget.JVM_11
+           jvmTarget = JvmTarget.JVM_17
        }
        androidResources {
            enable = true
@@ -67,12 +61,20 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.navigation.compose)
+            implementation(libs.koin.compose)
+            
+            // Multi-module dependencies
+            implementation(project(":feat:home"))
+            implementation(project(":core:model"))
+            implementation(project(":core:domain"))
+            implementation(project(":core:data"))
+            implementation(project(":core:navigation"))
+            implementation(project(":core:designsystem"))
+            implementation(project(":common"))
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-        }
-        jsMain.dependencies {
-            implementation(libs.wrappers.browser)
         }
     }
 }

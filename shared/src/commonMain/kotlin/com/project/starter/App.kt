@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.project.starter.home.Greeting
 import org.jetbrains.compose.resources.painterResource
 
 import kmpstarter.shared.generated.resources.Res
