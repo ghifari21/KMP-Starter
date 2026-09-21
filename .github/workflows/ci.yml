@@ -32,7 +32,7 @@ jobs:
         run: ./gradlew spotlessCheck
 
       - name: Run Unit Tests
-        run: ./gradlew testDebugUnitTest desktopTest
+        run: ./gradlew testDebugUnitTest jvmTest
 
       - name: Build Android APK
         run: ./gradlew assembleDebug
