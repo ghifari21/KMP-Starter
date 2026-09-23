@@ -12,6 +12,8 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.kotlinx.coroutines.core)
+            api(libs.paging.common)
+            api(libs.koin.core)
         }
     }
 }

@@ -4,8 +4,8 @@ import com.project.starter.core.domain.repository.ExampleRepository
 import com.project.starter.core.model.ExampleModel
 import kotlinx.coroutines.flow.Flow
 
-class GetExampleUseCase(
+class GetExamplesUseCase(
     private val repository: ExampleRepository,
 ) {
-    operator fun invoke(): Flow<List<ExampleModel>> = repository.getExamples()
+    operator fun invoke(): Flow<Result<List<ExampleModel>>> = repository.getExamples()
 }

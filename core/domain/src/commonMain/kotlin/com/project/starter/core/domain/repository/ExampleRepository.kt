@@ -4,5 +4,5 @@ import com.project.starter.core.model.ExampleModel
 import kotlinx.coroutines.flow.Flow
 
 interface ExampleRepository {
-    fun getExamples(): Flow<List<ExampleModel>>
+    fun getExamples(): Flow<Result<List<ExampleModel>>>
 }

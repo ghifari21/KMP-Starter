@@ -12,10 +12,8 @@ java {
 dependencies {
     implementation(libs.agp.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
-    implementation("androidx.room:room-gradle-plugin:2.7.0-alpha11")
     implementation(libs.compose.gradlePlugin)
-    implementation(libs.kotlin.gradlePlugin)
-    implementation("androidx.room:room-gradle-plugin:2.7.0-alpha11")
+    implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.7")
 }
 
 gradlePlugin {
@@ -28,6 +26,10 @@ gradlePlugin {
         register("cmpLibrary") {
             id = "convention.cmp.library"
             implementationClass = "plugins.CmpLibraryConventionPlugin"
+        }
+        register("detekt") {
+            id = "convention.detekt"
+            implementationClass = "plugins.DetektConventionPlugin"
         }
         
         // Modules

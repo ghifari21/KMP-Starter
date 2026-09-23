@@ -8,13 +8,14 @@ import com.project.starter.core.data.network.createHttpClient
 import com.project.starter.core.data.repository.ExampleRepositoryImpl
 import com.project.starter.core.domain.repository.ExampleRepository
 import com.project.starter.core.domain.repository.SessionManager
+import com.project.starter.core.navigation.AppNavigator
 import org.koin.dsl.module
 
 val dataModule =
     module {
         includes(platformModule())
 
-        single { createHttpClient() }
+        single { createHttpClient(get()) }
         single { ExampleApiService(get()) }
 
         single {
@@ -23,5 +24,7 @@ val dataModule =
         }
         single<SessionManager> { EncryptedSessionManager(get()) }
 
-        single<ExampleRepository> { ExampleRepositoryImpl(get()) }
+        single<ExampleRepository> { ExampleRepositoryImpl(get(), get()) }
+
+        single { AppNavigator() }
     }

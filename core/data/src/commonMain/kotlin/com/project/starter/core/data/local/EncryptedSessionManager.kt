@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.project.starter.core.domain.repository.SessionManager
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
@@ -32,4 +33,9 @@ class EncryptedSessionManager(
             preferences.remove(TOKEN_KEY)
         }
     }
+
+    override fun isLoggedIn(): Flow<Boolean> =
+        dataStore.data.map { preferences ->
+            !preferences[TOKEN_KEY].isNullOrBlank()
+        }
 }

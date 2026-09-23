@@ -5,7 +5,6 @@ import com.project.starter.common.base.UiEvent
 import com.project.starter.common.base.UiState
 
 data class HomeState(
-    val isLoading: Boolean = false,
     val items: List<String> = emptyList(),
 ) : UiState
 

@@ -10,9 +10,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":common"))
+            implementation(project(":core:designsystem"))
+            implementation(project(":core:domain"))
+            implementation(project(":core:model"))
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
         }
     }
 }

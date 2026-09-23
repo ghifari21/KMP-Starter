@@ -14,11 +14,21 @@ internal fun Project.configKmp(extension: KotlinMultiplatformExtension) {
         
         jvm()
         
-        // WasmJS is temporarily disabled because Room KMP (2.7.0) 
-        // does not yet support WasmJS targets.
-        // @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
-        // wasmJs {
-        //     browser()
-        // }
+        // WasmJS is now enabled since we migrated to Store5
+        @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
+        wasmJs {
+            browser {
+                val projectDirPath = project.projectDir.path
+                commonWebpackConfig {
+                    outputFileName = "composeApp.js"
+                    devServer = (devServer ?: org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.DevServer()).copy(
+                        static = (devServer?.static ?: mutableListOf()).apply {
+                            add(projectDirPath)
+                        }
+                    )
+                }
+            }
+            binaries.executable()
+        }
     }
 }

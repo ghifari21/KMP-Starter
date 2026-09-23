@@ -58,10 +58,34 @@ You can run the desktop application from the terminal:
 ./gradlew :desktopApp:run
 ```
 
-### iOS
-1. Ensure you are on macOS and have Xcode installed.
-2. Open the `/iosApp` directory in Xcode and run it from there.
-3. Or, run via Android Studio using the `iosApp` run configuration.
+### WasmJS (Browser)
+Currently experimental, but active. To build for web:
+```bash
+./gradlew :composeApp:wasmJsBrowserDevelopmentRun
+```
+
+## 🎨 Environments (Flavors)
+
+The Android target supports **Dev**, **Staging**, and **Prod** environments mapped via Product Flavors. Base URLs are automatically injected.
+To build a specific flavor:
+```bash
+./gradlew :androidApp:assembleDevDebug
+```
+
+## 🛠 Tooling & Code Quality
+
+- **Detekt**: Static code analysis. Run `./gradlew detekt`.
+- **Spotless**: Code formatting (ktlint). Run `./gradlew spotlessApply`.
+- **Testing**: Pre-configured `MainDispatcherRule`, `Turbine`, `MockK`, and Fake patterns.
+- **Git Hooks**: Pre-push hook automatically checks Spotless and Detekt.
+
+### Generating a New Feature Module
+
+We provide a bash script to quickly scaffold new feature modules compliant with the architecture:
+```bash
+./create_feature.sh feature_name
+```
+This automatically sets up `build.gradle.kts`, `di`, `presentation`, and adds the module to `settings.gradle.kts`.
 
 ## 🔄 Renaming the Package
 
@@ -71,4 +95,3 @@ Run the provided Python script in the root directory:
 ```bash
 python rename.py
 ```
-It will prompt you for your new package name (e.g., `com.mycompany.myapp`) and automatically rename all folders, `build.gradle` namespaces, and import statements across the entire project.
