@@ -22,12 +22,16 @@ import androidx.compose.ui.Modifier
 import com.project.starter.common.utils.collectMvi
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    navigateToDetail: (id: String, title: String) -> Unit,
+) {
     val snackbarHostState = remember { SnackbarHostState() }
 
     val state by viewModel.collectMvi { effect ->
         when (effect) {
             is HomeEffect.ShowToast -> snackbarHostState.showSnackbar(effect.message)
+            is HomeEffect.NavigateToDetail -> navigateToDetail(effect.id, effect.title)
         }
     }
 
@@ -49,10 +53,11 @@ fun HomeScreen(viewModel: HomeViewModel) {
             LazyColumn(modifier = Modifier.padding(paddingValues)) {
                 items(state.data.items) { item ->
                     ListItem(
-                        headlineContent = { Text(item) },
+                        headlineContent = { Text(item.name) },
+                        supportingContent = { Text(item.description) },
                         modifier =
                             Modifier.clickable {
-                                viewModel.setEvent(HomeEvent.LoadItems)
+                                viewModel.setEvent(HomeEvent.OnItemClicked(item))
                             },
                     )
                     HorizontalDivider()

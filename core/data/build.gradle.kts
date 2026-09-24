@@ -13,6 +13,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":core:model"))
             implementation(project(":core:domain"))
+            implementation(project(":core:navigation"))
             implementation(project(":common"))
             implementation(libs.koin.core)
             implementation(libs.ktor.client.core)

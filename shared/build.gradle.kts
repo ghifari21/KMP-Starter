@@ -10,6 +10,7 @@ plugins {
 val isMac = System.getProperty("os.name").lowercase().contains("mac")
 
 kotlin {
+    jvmToolchain(17)
     if (isMac) {
         listOf(
             iosArm64(),
@@ -72,6 +73,7 @@ kotlin {
 
             // Multi-module dependencies
             implementation(project(":feat:home"))
+            implementation(project(":feat:auth"))
             implementation(project(":core:model"))
             implementation(project(":core:domain"))
             implementation(project(":core:data"))

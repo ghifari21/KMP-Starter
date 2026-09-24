@@ -6,6 +6,8 @@ import androidx.navigation.compose.rememberNavController
 import com.project.starter.core.designsystem.theme.AppTheme
 import com.project.starter.core.navigation.AppNavigator
 import com.project.starter.core.navigation.BaseNavHost
+import com.project.starter.feat.home.navigation.HomeRoute
+import com.project.starter.feat.home.navigation.homeGraph
 import com.project.starter.shared.router.AppRouter
 import org.koin.compose.KoinContext
 import org.koin.compose.koinInject
@@ -27,10 +29,9 @@ fun App() {
             AppRouter {
                 BaseNavHost(
                     navHostController = navController,
-                    startDestination = com.project.starter.feat.home.navigation.HomeRoute,
+                    startDestination = HomeRoute,
                 ) {
-                    com.project.starter.feat.home.navigation
-                        .homeGraph(navController)
+                    homeGraph(navController)
                 }
             }
         }

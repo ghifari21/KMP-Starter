@@ -1,15 +1,31 @@
 package com.project.starter.core.domain.usecase
 
 import com.project.starter.core.testing.fakes.FakeExampleRepository
-import com.project.starter.core.testing.util.MainDispatcherRule
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GetExamplesUseCaseTest {
-    private val dispatcherRule = MainDispatcherRule()
+    @BeforeTest
+    fun setUp() {
+        Dispatchers.setMain(UnconfinedTestDispatcher())
+    }
+
+    @AfterTest
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
     private val repository = FakeExampleRepository()
     private val useCase =
         GetExamplesUseCase(
@@ -25,7 +41,7 @@ class GetExamplesUseCaseTest {
             // Assert
             assertTrue(result.isSuccess)
             assertEquals(2, result.getOrNull()?.size)
-            assertEquals("Test1", result.getOrNull()?.get(0)?.title)
+            assertEquals("Test1", result.getOrNull()?.get(0)?.name)
         }
 
     @Test
